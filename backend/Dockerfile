@@ -11,8 +11,9 @@ RUN npm ci
 # Copy source files
 COPY . .
 
-# Build TypeScript
-RUN npm run build
+# Fix permissions and build TypeScript
+RUN chmod +x node_modules/.bin/* 2>/dev/null || true && \
+    npm run build
 
 # Expose port
 EXPOSE 5000
