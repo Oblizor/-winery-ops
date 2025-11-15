@@ -1,4 +1,4 @@
-FROM node:20-alpine
+FROM node:20-slim
 
 WORKDIR /app
 
@@ -11,9 +11,8 @@ RUN npm ci
 # Copy source files
 COPY . .
 
-# Fix permissions and build TypeScript
-RUN chmod +x node_modules/.bin/* 2>/dev/null || true && \
-    npm run build
+# Build TypeScript
+RUN npm run build
 
 # Expose port
 EXPOSE 5000
