@@ -1,0 +1,14 @@
+services:
+  - type: web
+    name: winery-ops-backend
+    env: node
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    envVars:
+      - key: PORT
+        value: 10000
+      - key: NODE_ENV
+        value: production
+      - key: WINERY_DATA_DIR
+        value: /opt/render/project/src/WineryOperations
+
