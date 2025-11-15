@@ -66,21 +66,27 @@ This guide covers deploying both the frontend and backend of the Winery Operatio
    - Sign in with GitHub
    - Click "New Project" → "Deploy from GitHub repo"
    - Select `Oblizor/-winery-ops`
-   - Select "Backend" service
 
-2. **Configure Service**
-   - Root Directory: `backend`
-   - Build Command: `npm install && npm run build`
-   - Start Command: `npm start`
+2. **Configure Service Settings** (IMPORTANT)
+   - Click on your service → "Settings" tab
+   - **Root Directory**: Set to `backend` (this is critical!)
+   - Railway will auto-detect Node.js and use the `nixpacks.toml` configuration
 
-3. **Environment Variables**
+3. **Build Configuration**
+   - Railway will automatically:
+     - Install dependencies: `npm ci`
+     - Build: `npm run build`
+     - Start: `npm start`
+   - No manual commands needed if root directory is set correctly
+
+4. **Environment Variables**
    - `PORT`: Railway sets this automatically
    - `NODE_ENV`: `production`
    - `WINERY_DATA_DIR`: Path to your CSV files directory
      - If CSV files are in the repo: `/app/WineryOperations`
      - If using external storage: configure accordingly
 
-4. **Add CSV Data**
+5. **Add CSV Data**
    - Option A: Add CSV files to repository in `backend/WineryOperations/`
    - Option B: Use Railway volumes or external storage
    - Required files:
@@ -91,7 +97,7 @@ This guide covers deploying both the frontend and backend of the Winery Operatio
      - `inventory_movements.csv`
      - `packaging_recipes.csv`
 
-5. **Deploy**
+6. **Deploy**
    - Railway will auto-deploy on push to `main`
    - Copy the generated URL (e.g., `https://your-app.railway.app`)
 
