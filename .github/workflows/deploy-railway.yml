@@ -1,0 +1,26 @@
+name: Deploy to Railway
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'backend/**'
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    name: Deploy Backend to Railway
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Deploy to Railway
+        uses: bervProject/railway-deploy@v1.0.0
+        with:
+          railway_token: ${{ secrets.RAILWAY_TOKEN }}
+          service: backend
+          # Railway will handle the build and deployment
+          # Make sure Root Directory is set to 'backend' in Railway dashboard
+
