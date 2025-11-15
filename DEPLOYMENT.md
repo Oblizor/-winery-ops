@@ -67,17 +67,21 @@ This guide covers deploying both the frontend and backend of the Winery Operatio
    - Click "New Project" → "Deploy from GitHub repo"
    - Select `Oblizor/-winery-ops`
 
-2. **Configure Service Settings** (IMPORTANT)
+2. **Configure Service Settings** (CRITICAL - DO THIS FIRST!)
    - Click on your service → "Settings" tab
-   - **Root Directory**: Set to `backend` (this is critical!)
-   - Railway will auto-detect Node.js and use the `nixpacks.toml` configuration
+   - Scroll down to "Service" section
+   - Find **"Root Directory"** field
+   - Enter: `backend` (without quotes)
+   - Click "Save" or the changes will auto-save
+   - Railway will now build from the `backend` directory
 
 3. **Build Configuration**
-   - Railway will automatically:
+   - Railway will use the `Dockerfile` in the `backend` directory (recommended)
+   - OR Railway will auto-detect Node.js and use `nixpacks.toml` if Dockerfile is not used
+   - Build process:
      - Install dependencies: `npm ci`
-     - Build: `npm run build`
-     - Start: `npm start`
-   - No manual commands needed if root directory is set correctly
+     - Build TypeScript: `npm run build`
+     - Start server: `npm start`
 
 4. **Environment Variables**
    - `PORT`: Railway sets this automatically
@@ -98,8 +102,14 @@ This guide covers deploying both the frontend and backend of the Winery Operatio
      - `packaging_recipes.csv`
 
 6. **Deploy**
-   - Railway will auto-deploy on push to `main`
+   - After setting Root Directory, Railway will automatically redeploy
+   - If it doesn't auto-redeploy, click "Redeploy" button or push a new commit
    - Copy the generated URL (e.g., `https://your-app.railway.app`)
+
+**Troubleshooting:**
+- If build still fails, ensure Root Directory is set to `backend` (check Settings tab)
+- The Dockerfile in `backend/` directory will be used automatically
+- Make sure you saved the Root Directory setting before deploying
 
 ### Option 2: Render
 
